@@ -1,16 +1,28 @@
 ---
 - name: Deploy Blog Application
   hosts: local
-  become: false
+  become: yes
+
   tasks:
     - name: Ensure Docker Compose is present
-      package:
+      apt:
         name: docker-compose
         state: present
 
-    - name: Pull and Run Docker Compose
-      community.docker.docker_compose_v2:
+    - name: Pull latest Docker images
+      docker_image:
+        name: "{{ item }}"
+        pull: always
+      loop:
+        - nikhilguptaiiitb/frontend-app:latest
+        - nikhilguptaiiitb/backend-app:latest
+
+    - name: Stop running containers (if any)
+      docker_compose:
+        project_src: "{{ playbook_dir }}"
+        state: absent
+
+    - name: Start services using Docker Compose
+      docker_compose:
         project_src: "{{ playbook_dir }}"
         state: present
-        pull: missing
-        recreate: always
