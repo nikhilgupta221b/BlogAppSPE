@@ -4,11 +4,6 @@
   become: yes
 
   tasks:
-    - name: Ensure Docker Compose is present
-      apt:
-        name: docker-compose
-        state: present
-
     - name: Pull latest Docker images
       docker_image:
         name: "{{ item }}"
