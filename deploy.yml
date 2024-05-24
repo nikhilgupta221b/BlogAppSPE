@@ -7,5 +7,5 @@
       community.docker.docker_compose_v2:
         project_src: "{{ playbook_dir }}"
         state: present
-        pull: missing  # Adjusted from True to "missing"
+        pull: 'missing'  # Ensure this is set correctly
         restarted: yes
