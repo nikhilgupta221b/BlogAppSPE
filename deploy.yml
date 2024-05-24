@@ -2,12 +2,10 @@
 - name: Deploy Blog Application
   hosts: local
   become: false
-  collections:
-    - community.docker
   tasks:
     - name: Pull and Run Docker Compose
       community.docker.docker_compose_v2:
         project_src: "{{ playbook_dir }}"
         state: present
-        pull: yes
+        pull: missing  # Adjusted from True to "missing"
         restarted: yes
