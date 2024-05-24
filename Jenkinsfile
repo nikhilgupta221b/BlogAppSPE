@@ -23,7 +23,7 @@ pipeline {
         stage('Build Frontend Docker Image') {
             steps {
                 script {
-                    docker.build("$FRONTEND_IMAGE")
+                    docker.build("$FRONTEND_IMAGE", "./front")
                 }
             }
         }
@@ -31,7 +31,7 @@ pipeline {
         stage('Build Backend Docker Image') {
             steps {
                 script {
-                    docker.build("$BACKEND_IMAGE", "./server")
+                    docker.build("$BACKEND_IMAGE", "./back")
                 }
             }
         }
