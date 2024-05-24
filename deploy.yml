@@ -1,7 +1,7 @@
 ---
 - name: Deploy Blog Application
   hosts: local
-  become: true
+  become: false
   tasks:
     - name: Install Docker if not present
       apt:
@@ -23,4 +23,4 @@
         state: present
         pull: yes
         restarted: yes
-      become: true
+      become: false
