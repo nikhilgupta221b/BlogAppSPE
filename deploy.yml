@@ -3,9 +3,14 @@
   hosts: local
   become: false
   tasks:
+    - name: Ensure Docker Compose is present
+      package:
+        name: docker-compose
+        state: present
+
     - name: Pull and Run Docker Compose
       community.docker.docker_compose_v2:
         project_src: "{{ playbook_dir }}"
         state: present
-        pull: 'missing'  # Ensure this is set correctly
-        restarted: yes
+        pull: missing
+        recreate: always
