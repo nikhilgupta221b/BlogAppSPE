@@ -1,23 +1,23 @@
 ---
 - name: Deploy Blog Application
-  hosts: local
+  hosts: localhost
   become: yes
 
   tasks:
     - name: Pull latest Docker images
-      docker_image:
+      community.general.docker_image:
         name: "{{ item }}"
-        pull: always
+        source: pull
       loop:
         - nikhilguptaiiitb/frontend-app:latest
         - nikhilguptaiiitb/backend-app:latest
 
     - name: Stop running containers (if any)
-      docker_compose:
+      community.general.docker_compose:
         project_src: "{{ playbook_dir }}"
         state: absent
 
     - name: Start services using Docker Compose
-      docker_compose:
+      community.general.docker_compose:
         project_src: "{{ playbook_dir }}"
         state: present
