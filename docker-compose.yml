@@ -20,7 +20,7 @@ services:
 
   backend:
     build:
-      context: ./server
+      context: ./back
       dockerfile: Dockerfile
     container_name: blog-backend
     ports:
